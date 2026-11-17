@@ -20,8 +20,8 @@
 <link rel="preconnect" href="https://chat.whatsapp.com">
 <script>
 /* ===== CONFIG ===== */
-const GROUPS = ['https://chat.whatsapp.com/CAH0Zcs231eIT6NDTFrdxV','https://chat.whatsapp.com/EJkon5sK2gpAqXhRifDXQk'];
-/* Grupo lotou? Tire o link dele daqui e coloque o do grupo novo. */
+const GROUPS = ['https://chat.whatsapp.com/CAH0Zcs231eIT6NDTFrdxV'];
+/* Esta página usa só o grupo 1. O grupo 2 fica nos anúncios que pulam a página. */
 </script>
 <!-- Meta Pixel (Achados do Dia LP) -->
 <script>
@@ -175,14 +175,13 @@ footer p{margin-bottom:8px}
 
 <script>
 (function(){
-  /* Sorteia 1 grupo por visitante e lembra a escolha (divide o tráfego entre os grupos). */
-  var g;
-  try{g=localStorage.getItem('ad_grp')}catch(e){}
-  if(!g||GROUPS.indexOf(g)<0){g=GROUPS[Math.floor(Math.random()*GROUPS.length)];try{localStorage.setItem('ad_grp',g)}catch(e){}}
+  /* Sempre o grupo 1, mesmo se o visitante já tinha outro grupo salvo. */
+  var g = GROUPS[0];
+  try{localStorage.setItem('ad_grp',g)}catch(e){}
   var sent=false;
   function go(e){
     e.preventDefault();
-    if(!sent&&typeof fbq==='function'){try{fbq('track','Lead',{content_name:'grupo_whatsapp',group:GROUPS.indexOf(g)+1})}catch(x){}}
+    if(!sent&&typeof fbq==='function'){try{fbq('track','Lead',{content_name:'grupo_whatsapp',group:1})}catch(x){}}
     sent=true;
     setTimeout(function(){location.href=g},typeof fbq==='function'?300:0);
   }
